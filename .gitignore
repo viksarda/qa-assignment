@@ -33,6 +33,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+/package-lock.json
 
 # System Files
 .DS_Store
@@ -40,3 +41,10 @@ Thumbs.db
 
 .nx/cache
 .nx/workspace-data
+
+# Playwright
+playwright-report/
+packages/playwright/results/*
+
+# Project variables
+.env
