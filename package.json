@@ -2,7 +2,12 @@
   "name": "@qa-assignment/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "pretest": "npx prettier . --write",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:debug": "playwright test --debug"
+  },
   "private": true,
   "dependencies": {},
   "devDependencies": {
