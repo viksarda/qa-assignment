@@ -43,6 +43,7 @@ Thumbs.db
 
 # Playwright
 results/
+test-results/
 
 # Project variables
 .env
