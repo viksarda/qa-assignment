@@ -4,17 +4,21 @@
   "license": "MIT",
   "scripts": {
     "pretest": "npx prettier . --write",
-    "test:e2e": "playwright test",
-    "test:e2e:headed": "playwright test --headed",
-    "test:e2e:debug": "playwright test --debug"
+    "playwright:test": "playwright test",
+    "playwright:test:headed": "playwright test --headed",
+    "playwright:test:debug": "playwright test --debug",
+    "cypress:test": "cypress run",
+    "cypress:test:debug": "cypress open"
   },
   "private": true,
-  "dependencies": {},
   "devDependencies": {
+    "@nx/cypress": "^20.3.1",
     "@nx/js": "20.3.1",
+    "@playwright/test": "^1.49.1",
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "cypress": "^13.13.0",
     "nx": "20.3.1",
     "prettier": "^2.6.2",
     "tslib": "^2.3.0",
