@@ -16,13 +16,10 @@ export default defineConfig({
   reporter: [
     ['html', { outputFolder: './packages/playwright/results', open: 'never' }],
   ],
-  //timeout: 30000,
   use: {
     baseURL: process.env.BASE_URL,
     headless: isHeadless,
     viewport: { width: 1280, height: 720 },
-    //locale: 'en-US',
-    //timezoneId: 'America/Los_Angeles',
     screenshot: 'on',
     video: 'retain-on-failure',
   },
