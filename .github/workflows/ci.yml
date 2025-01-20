@@ -13,6 +13,8 @@ permissions:
 jobs:
   cypress-tests:
     runs-on: ubuntu-latest
+    env:
+      BASE_URL: "https://www.google.com"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,11 +30,16 @@ jobs:
       - name: Install Cypress Dependencies
         uses: cypress-io/github-action@v4
 
+      - name: Copy environment variables
+        run: cp .env.example .env
+
       - name: Run Cypress Tests
         run: xvfb-run -a npm run cypress:test
 
   playwright-tests:
     runs-on: ubuntu-latest
+    env:
+      BASE_URL: "https://www.google.com"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -47,6 +54,9 @@ jobs:
 
       - name: Install Playwright Browsers
         run: npx playwright install
+
+      - name: Copy environment variables
+        run: cp .env.example .env
 
       - name: Run Playwright Tests
         run: xvfb-run -a npm run playwright:test
