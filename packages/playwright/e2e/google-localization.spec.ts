@@ -1,12 +1,12 @@
 import { test } from '@playwright/test';
-import { locales } from '../fixtures/locations';
+import { locales } from '../../../libs/fixtures/locations';
 import { handleCookieConsent } from '../helpers/modalHelpers';
 import {
   checkButtonTranslation,
   clickOnSearchButton,
   fillSearchField,
 } from '../helpers/homepageHelpers';
-import { malta, slovenia } from '../fixtures/translations';
+import { malta, slovenia } from '../../../libs/fixtures/translations';
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/');

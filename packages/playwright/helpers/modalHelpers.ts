@@ -1,5 +1,5 @@
 import { Page } from '@playwright/test';
-import { modal } from '../selectors/modalSelectors';
+import { modal } from '../../../libs/selectors/modalSelectors';
 
 export async function handleCookieConsent(
   page: Page,

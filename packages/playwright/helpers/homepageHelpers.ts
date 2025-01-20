@@ -1,5 +1,5 @@
 import { expect, Page } from 'playwright/test';
-import { homepage } from '../selectors/homepageSelectors';
+import { homepage } from '../../../libs/selectors/homepageSelectors';
 
 export async function fillSearchField(page: Page, value: string) {
   const searchInputSelector = page.locator(homepage.searchInput);
