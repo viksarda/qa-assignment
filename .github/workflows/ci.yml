@@ -25,6 +25,9 @@ jobs:
 
       - run: npm ci --legacy-peer-deps
 
+      - name: Install Cypress Dependencies
+        uses: cypress-io/github-action@v4
+
       - name: Run Cypress Tests
         run: npm run cypress:test
 
@@ -41,6 +44,9 @@ jobs:
           cache: 'npm'
 
       - run: npm ci --legacy-peer-deps
+
+      - name: Install Playwright Browsers
+        run: npx playwright install
 
       - name: Run Playwright Tests
         run: npm run playwright:test
