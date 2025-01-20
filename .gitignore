@@ -45,5 +45,8 @@ Thumbs.db
 results/
 test-results/
 
+# Cypress
+screenshots/
+
 # Project variables
 .env

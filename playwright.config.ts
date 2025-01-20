@@ -1,7 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 import path from 'path';
-import { baseURL } from './packages/playwright/fixtures/urls';
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 const isHeadless = process.env.HEADLESS === 'true';
@@ -19,7 +18,7 @@ export default defineConfig({
   ],
   //timeout: 30000,
   use: {
-    baseURL: baseURL,
+    baseURL: process.env.BASE_URL,
     headless: isHeadless,
     viewport: { width: 1280, height: 720 },
     //locale: 'en-US',
