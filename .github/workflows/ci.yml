@@ -29,7 +29,7 @@ jobs:
         uses: cypress-io/github-action@v4
 
       - name: Run Cypress Tests
-        run: npm run cypress:test
+        run: xvfb-run -a npm run cypress:test
 
   playwright-tests:
     runs-on: ubuntu-latest
@@ -49,4 +49,4 @@ jobs:
         run: npx playwright install
 
       - name: Run Playwright Tests
-        run: npm run playwright:test
+        run: xvfb-run -a npm run playwright:test
