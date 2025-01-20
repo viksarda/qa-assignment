@@ -1,89 +1,71 @@
-# QaAssignment
+# QA Assignment
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Welcome to the testing automation solution for Google Localization.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+This repository is an Nx monorepo that consists of two packages: `Playwright` and `Cypress`.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+Each package includes a spec that contains tests, however with different approaches.
 
-## Finish your CI setup
+## Getting Started
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/X3PpTNzily)
+1. Clone the repo
+   ```sh
+   git clone https://github.com/viksarda/qa-assignment.git
+   ```
+2. Copy the `.env.example` file
+   ```sh
+   cp .env.example .env
+   ```
+3. Update the `.env` file by adding:
+   ```sh
+   BASE_URL="https://www.google.com"
+   ```   
+4. Run the tests (both playwright and cypress)
+   ```sh
+   npm run test
+   ```
 
-## Generate a library
+### Additional scripts
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
-```
+Execute only `Cypresss` tests
+   ```sh
+   npm run cypress:test
+   ```
+Execute only `Playwright` tests
+   ```sh
+   npm run playwright:test
+   ```
+Execute `prettier` to format your code
+   ```sh
+   npm run prettier
+   ```
 
-## Run tasks
+To list all of the available scripts run:
+   ```sh
+   npm run-script
+   ```
+## Problems and Solutions
 
-To build the library use:
+During this development process, there have been multiple challenges and obstacles. I will list most of them as well as the according sollution.
 
-```sh
-npx nx build pkg1
-```
+### How to check for localization
 
-To run any task with Nx use:
+The only reason why this was tricky is because of google's reCAPTCHA. After spending some time to make the tests as humanoid as possible, in order to bypass the validation, this could not be done.
 
-```sh
-npx nx <target> <project-name>
-```
+The most reliable results turned out to be when runnning in headless mode, but even then, the test results were not consistent. In order to keep the stability and integrity of the tests, `I solved this by checking the translation of the site before rendering the reCAPTCHA`.
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+At the end of every test, I targeted the main search button as an identifier that the localization was set correctly according to the translation. (alternative was to send a GET request of the locale in the browser context, but proved to be less reliable)
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### How to categorize the tests
 
-## Versioning and releasing
+There were 2 approaches to this:
 
-To version and release the library use
+1. `Static tests` (Playwright)
 
-```
-npx nx release
-```
+2. `Dynamic tests` (Cypress)
 
-Pass `--dry-run` to see what would happen without actually releasing the library.
+In this perticular case, I only used 2 different locales which means that writing the tests statically is better for stability, CICD and avoiding loops to generate new unexpected tests and mess with report history. (`google-localization.spec.ts`)
 
-[Learn more about Nx release &raquo;](hhttps://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+However in the case where this needs to be tested with more locales, to avoid code repetition, I implemented a dynamic solution in Cypress. This will generate the same amount of test suites as there are locales to test. (`google-localization.cy.ts`)
 
-## Keep TypeScript project references up to date
-
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
-
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
-```sh
-npx nx sync
-```
-
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
-
-```sh
-npx nx sync:check
-```
-
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+For this particular scenario I would use `Static Tests`

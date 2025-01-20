@@ -12,7 +12,7 @@ Object.entries(locales).forEach(([localeName, localeCode]) => {
         req.headers['Accept-Language'] = localeCode;
       }).as('setLocale');
 
-      cy.visit('https://www.google.com', {
+      cy.visit('/', {
         onBeforeLoad(win) {
           win.localStorage.setItem('locale', localeCode);
         },
