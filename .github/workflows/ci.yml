@@ -22,7 +22,11 @@ jobs:
       - name: Install display dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+          sudo apt-get install -y \
+            libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev \
+            libnss3 libxss1 libxtst6 libgstreamer-plugins-base1.0-0 \
+            libgstreamer1.0-0 libasound2 libatk-bridge2.0-0 libxshmfence1 \
+            xvfb
           Xvfb :99 -ac &
           export DISPLAY=:99
 
@@ -44,5 +48,5 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install
 
-      - name: Run Playwright tests
-        run: npm run playwright:test
+      - name: Run Playwright tests with Xvfb
+        run: xvfb-run -- npm run playwright:test
